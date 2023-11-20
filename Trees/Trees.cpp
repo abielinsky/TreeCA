@@ -6,10 +6,14 @@
 #include <iostream>
 #include <queue>
 
+#include "SFML/Graphics.hpp"
+
 using namespace std;
 /*
 	The indented parenthetic representation of a tree
 */
+
+
 void displayTree(TreeIterator<string> iter, string indent)
 {
 	cout << indent << iter.node->data ;
@@ -115,6 +119,26 @@ void question2()
 
 int main()
 {
-	question2();
+
+	sf::RenderWindow window(sf::VideoMode(800, 800), "Test");
+	sf::Event e;
+
+	while (window.isOpen())
+	{
+		while (window.pollEvent(e))
+		{
+			if (e.type == sf::Event::Closed)
+				window.close();
+		}
+		
+	}
+
+
+	//question2();
     return 0;
+
+
+
+
+
 }
