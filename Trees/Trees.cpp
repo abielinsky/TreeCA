@@ -7,6 +7,9 @@
 #include <queue>
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
+
 
 using namespace std;
 /*
@@ -120,25 +123,51 @@ void question2()
 int main()
 {
 
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(400, 400), "SFML works!");
+
 	sf::CircleShape shape(100.f);
 	shape.setFillColor(sf::Color::Green);
 
-	while (window.isOpen())
-	{
+	// Initial position of the circle
+	float circlePosX = 100.f;
+	float circlePosY = 200.f;
+
+	// Speed of the circle movement
+	float moveSpeed = 0.1f;
+
+	while (window.isOpen()) {
 		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
+		while (window.pollEvent(event)) {
+			switch (event.type) {
+			case sf::Event::Closed:
 				window.close();
+				break;
+			case sf::Event::Resized:
+				// Handle window resizing here
+				// You might want to update the view or do something else
+				break;
+			}
 		}
 
+		// Update the circle's position
+		circlePosX += moveSpeed;
+
+		// Check if the circle goes beyond the right edge, and wrap it to the left
+		if (circlePosX > window.getSize().x)
+			circlePosX = -shape.getRadius();  // Set to a negative value to start from the left edge
+
 		window.clear();
+
+		// Set the position of the circle
+		shape.setPosition(circlePosX, circlePosY);
+
 		window.draw(shape);
 		window.display();
 	}
-
 	
+
+
+
 
 	question1();
 	question2();
