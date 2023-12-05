@@ -122,7 +122,8 @@ void question2()
 
 int main()
 {
-
+	/* CODE TO TEST THE SFML GRAPHIC WORKING*/
+	/*  THIS IS A TEST TO CHECK THAT THE SFML GRAPHICS ARE WORKING PROPERLY 
 	sf::RenderWindow window(sf::VideoMode(400, 400), "SFML works!");
 
 	sf::CircleShape shape(100.f);
@@ -164,7 +165,7 @@ int main()
 		window.draw(shape);
 		window.display();
 	}
-	
+	*/
 
 
 
