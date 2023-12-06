@@ -1,6 +1,10 @@
 #pragma once
 #include "DList.h"
+#include <iostream>
+#include <vector>
 
+
+/*
 template<class T>
 class Tree
 {
@@ -38,3 +42,25 @@ int Tree<T>::count()
 	}
 	return c;
 }
+*/
+
+class TreeNode {
+public:
+	std::string data;
+	int size;
+	std::vector<TreeNode*> children;
+
+	TreeNode(const std::string& val, int fileSize) : data(val), size(fileSize) {}
+};
+
+
+
+class Tree {
+public:
+
+
+private:
+
+
+};
+

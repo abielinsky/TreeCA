@@ -12,9 +12,13 @@
 
 
 using namespace std;
+
+
 /*
 	The indented parenthetic representation of a tree
 */
+
+/*
 void displayTree(TreeIterator<string> iter, string indent)
 {
 	cout << indent << iter.node->data ;
@@ -35,6 +39,7 @@ void displayTree(TreeIterator<string> iter, string indent)
 /*
 	Print using a Depth First Search
 */
+/*
 void printDFS(TreeIterator<string> iter)
 {
 	while (iter.childValid())
@@ -48,6 +53,7 @@ void printDFS(TreeIterator<string> iter)
 /*
 	Print using a Breadth first Search
 */
+/*
 void printBFS(Tree<string> tree)
 {
 	queue<Tree<string>> queue;
@@ -67,9 +73,13 @@ void printBFS(Tree<string> tree)
 
 
 }
+
+*/
+
 /*
 	Code to test for question 1
 */
+/*
 void question1()
 {
 	Tree<string>* root = new Tree<string>("Sales");
@@ -95,6 +105,7 @@ void question1()
 /*
 	Code to test question 2 & 3.
 */
+/*
 void question2()
 {
 	Tree<string>* root = new Tree<string>("Sales");
@@ -117,7 +128,7 @@ void question2()
 	printBFS(*root);
 	delete root;
 }
-
+*/
 
 
 int main()
@@ -169,8 +180,10 @@ int main()
 
 
 
-
+	/*
 	question1();
 	question2();
+	*/
+
     return 0;
 }
