@@ -38,5 +38,16 @@
     <ClInclude Include="DListNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FileProcess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XMLReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="document.xml">
+      <Filter>Header Files</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 #pragma once
 #include "Tree.h"
-
+/* 
 template <class T>
 class TreeIterator
 {
@@ -179,3 +179,4 @@ T TreeIterator<T>::item()
 {
 	return node->data;
 }
+*/
