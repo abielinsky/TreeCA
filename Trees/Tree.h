@@ -103,6 +103,22 @@ public:
         }
     }
 
+    // Returns the count, including the root node
+    int countNode() {
+        if (root == nullptr) {
+            cout << "Tree is empty" << endl;
+        }
+        else {
+            totalNode = 0;
+            countNode(root);
+        }
+        return totalNode + 1;
+
+    }
+
+
+
+
 
 private:
 
@@ -142,6 +158,15 @@ private:
         }
 
         return treeStructure;
+    }
+
+    // Private recursive function to traverse the tree and count nodes
+    void countNode(TreeNode* node) {
+        // Increment the totalNode count by the number of children the current node has
+        totalNode += node->children.size();
+        for (size_t i = 0; i < node->children.size(); i++) {
+            countNode(node->children[i]);
+        }
     }
 
 

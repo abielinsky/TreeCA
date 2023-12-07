@@ -175,7 +175,17 @@ Tree& LoadXML(const XMLNode& node, Tree tree, int level = 0) {
             }
         }
     }
-   
+    else {
+        for (const XMLNode& child : node.children) {
+            if (isNumber(child.size)) {
+                tree.insert(node.name, child.name, stoi(child.size));
+            }
+        }
+    }
+
+    for (const XMLNode& child : node.children) {
+        LoadXML(child, tree, level + 1);
+    }
 
     return tree;
 }

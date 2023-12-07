@@ -59,22 +59,23 @@ void stage2() {
 		cout << "0. Exit" << std::endl;
 		cout << " -----------------------------------------" << endl;
 
-		std::cout << "Enter your choice: ";
-		std::cin >> choice;
+		cout << "Enter your choice: ";
+		cin >> choice;
 	
 		if (choice == 1) {
-			std::cout << std::endl;
+			cout << endl;
 			tree.display();
 		}
+		if (choice == 2) {
+			cout << endl;
+			cout << "number of items: " << tree.countNode() << endl;
+		}
+
 
 
 		else {
 			cout << " Invalid choice. Please select a valid option" << endl;
 		}
-	
-	
-	
-	
 	}
 }
 
