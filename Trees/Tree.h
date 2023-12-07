@@ -1,7 +1,3 @@
-#pragma once
-#include "DList.h"
-#include <iostream>
-#include <vector>
 
 
 /*
@@ -43,6 +39,12 @@ int Tree<T>::count()
 	return c;
 }
 */
+
+#pragma once
+#include "DList.h"
+#include <iostream>
+#include <vector>
+
 
 class TreeNode {
 public:
