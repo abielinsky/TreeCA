@@ -1,4 +1,9 @@
+#pragma once
+#include "DList.h"
+#include <iostream>
+#include <vector>
 
+using namespace std;
 
 /*
 template<class T>
@@ -40,54 +45,56 @@ int Tree<T>::count()
 }
 */
 
-#pragma once
-#include "DList.h"
-#include <iostream>
-#include <vector>
 
-
+// Define a TreeNode class to represent nodes in the tree
 class TreeNode {
 public:
-	std::string data;
+	string data;
 	int size;
-	std::vector<TreeNode*> children;
+	vector<TreeNode*> children;
 
-	TreeNode(const std::string& val, int fileSize) : data(val), size(fileSize) {}
+    // Constructor to initialize a tree node with data and size
+	TreeNode(const string& val, int fileSize) : data(val), size(fileSize) {}
 };
 
 
-
+// Define a Tree class to manage the tree structure
 class Tree {
 
 public:
 
-    TreeNode* root;
-    int totalNode = 1;
+    TreeNode* root;      // Pointer to the root of the tree
+    int totalNode = 1;  // Total number of nodes in the tree
 
+    // Constructor to initialize the Tree class
     Tree() : root(nullptr) {}
 
-    void setRoot(const std::string& val, int size = 0) {
+    // Function to set the root of the tree
+    void setRoot(const string& val, int size = 0) {
         root = new TreeNode(val, size);
     }
 
-    void insert(const std::string& parentVal, const std::string& val, int size = 0) {
+    // Function to insert a node into the tree
+    void insert(const string& parentVal, const string& val, int size = 0) {
         if (root == nullptr) {
-            std::cout << "Root is not set. Use setRoot() to set the root node." << std::endl;
+            cout << "Root is not set. Use setRoot() to set the root node." << std::endl;
             return;
         }
         insertRec(root, parentVal, val, size);
     }
 
+    // Function to display the tree structure
     void display() {
         if (root == nullptr) {
-            std::cout << "Tree is empty." << std::endl;
+            cout << "Tree is empty." << std::endl;
         }
         else {
             display(root, " ");
         }
     }
 
-    std::string getTree() {
+    // Function to get the tree structure as a string
+    string getTree() {
         if (root == nullptr) {
             return "Tree is empty.";
         }
@@ -99,7 +106,8 @@ public:
 
 private:
 
-    void insertRec(TreeNode* node, const std::string& parentVal, const std::string& val, int size = 0) {
+    // Helper function for recursive insertion
+    void insertRec(TreeNode* node, const string& parentVal, const string& val, int size = 0) {
         if (node->data == parentVal) {
             for (const auto& child : node->children) {
                 if (child->data == val && root->data != parentVal) {
@@ -115,17 +123,17 @@ private:
         }
     }
 
-
-    void display(TreeNode* node, const std::string& prefix) {
-        std::cout << prefix << "|-" << node->data << " - (" << node->size << ") bytes" << std::endl;
+    // Helper function for recursive tree display
+    void display(TreeNode* node, const string& prefix) {
+        cout << prefix << "|-" << node->data << " - (" << node->size << ") bytes" << endl;
         for (size_t i = 0; i < node->children.size(); ++i) {
             display(node->children[i], prefix + "  |");
         }
     }
 
 
-    std::string display2(TreeNode* node, const std::string& prefix) {
-        std::string treeStructure = "";
+    string display2(TreeNode* node, const string& prefix) {
+        string treeStructure = "";
 
         treeStructure += prefix + "|-" + node->data + "\n";
 

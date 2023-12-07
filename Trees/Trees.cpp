@@ -17,15 +17,15 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 
-
 using namespace std;
+
 
 Tree tree;
 
 void stage1() {
-	std::ifstream file("document.xml");
+	ifstream file("document.xml");
 	if (!file.is_open()) {
-		std::cerr << "Failed to open the XML file." << std::endl;
+		cout << "Failed to open the XML file." << endl;
 		return;
 	}
 	if (!hasRootElement("document.xml") && !validateXML("document.xml")) {
@@ -36,8 +36,46 @@ void stage1() {
 
 	parseXML(file, root);
 	tree = LoadXML(root, tree);
-	tree.display();
+	//tree.display();
 
+}
+
+void stage2() {
+
+	cout << "Welcome to the Directory Operations Program Stage 2" << endl;
+
+
+	int choice = -1;
+
+	while (choice != 0) {
+		cout << " -----------------------------------------" << endl;
+		cout << " ----------- Choose an operation ---------" << endl;
+	    cout << "1. Display Directory Structure" <<  endl;
+		cout << "2. Determine the number of items" <<  endl;
+		cout << "3. Determine memory usage" <<  endl;
+		cout << "4. Prune Empty Folders" <<  endl;
+		cout << "5. Find File/Folder" <<  endl;
+		cout << "6. Display Folder Contents" <<  endl;
+		cout << "0. Exit" << std::endl;
+		cout << " -----------------------------------------" << endl;
+
+		std::cout << "Enter your choice: ";
+		std::cin >> choice;
+	
+		if (choice == 1) {
+			std::cout << std::endl;
+			tree.display();
+		}
+
+
+		else {
+			cout << " Invalid choice. Please select a valid option" << endl;
+		}
+	
+	
+	
+	
+	}
 }
 
 
@@ -81,7 +119,6 @@ void printBFS(Tree<string> tree)
 }
 
 */
-
 /*
 	Code to test for question 1
 */
@@ -137,6 +174,8 @@ void question2()
 */
 
 
+
+
 int main()
 {
 	/* CODE TO TEST THE SFML GRAPHIC WORKING*/
@@ -187,29 +226,33 @@ int main()
 
 
 
-
+	// Initialize choice to -1 to ensure the loop runs at least once
 	int choice = -1;
-	while (choice != 0) {
-		std::cout << "Which one you want to run!" << std::endl;
-		std::cout << "Stage 1) Load XML" << std::endl;
-		std::cout << "Stage 2) File Process Management (cmd)" << std::endl;
-		std::cout << "Stage 3) File Process Management (gui)" << std::endl;
-		std::cout << "0) for Exit" << std::endl;
 
-		std::cout << "Enter Your Choice: ";
-		std::cin >> choice;
+	// Loop until the user chooses to exit (enters 0)
+	while (choice != 0) {
+		cout << "--------------------------------------------------" << endl;
+		cout << "Which one you want to run!" << endl;
+		cout << "Stage 1) Load XML (BEFORE OTHER OPTIONS)" << endl;
+		cout << "Stage 2) File Process Management (cmd)" << endl;
+		cout << "Stage 3) File Process Management (gui)" << endl;
+		cout << "----- 0) for Exit" << endl;
+		cout << "--------------------------------------------------" << endl;
+		cout << "Enter Your Choice: ";
+		cin >> choice;
+		cout << endl;
 
 		if (choice == 1) {
 			stage1();
 		}
 		else if (choice == 2) {
-			//stage2();
+			stage2();
 		}
 		else if (choice == 3) {
 		//	stage3();
 		}
 		else if (choice != 0) {
-			std::cout << "Wrong Choice" << std::endl;
+			cout << "Wrong Choice" << std::endl;
 		}
 	}
 	return 0;

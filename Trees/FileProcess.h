@@ -2,13 +2,15 @@
 #include "tree.h"
 #include <queue>
 
-// Memory used by a given folder using a breadth first algorithm.
+using namespace std;
+
+// Function to calculate the memory used by a given folder using breadth-first search
 int memoryUsage(TreeNode* root) {
     if (root == nullptr) {
         return 0;
     }
     int totalSize = 0;
-    std::queue<TreeNode*> nodeQueue;
+    queue<TreeNode*> nodeQueue;
     nodeQueue.push(root);
     while (!nodeQueue.empty()) {
         TreeNode* currentNode = nodeQueue.front();
@@ -16,6 +18,7 @@ int memoryUsage(TreeNode* root) {
 
         totalSize += currentNode->size;
 
+        // Enqueue all children of the current node
         for (TreeNode* child : currentNode->children) {
             nodeQueue.push(child);
         }
@@ -29,33 +32,38 @@ void pruneEmptyFolder(TreeNode* node, Tree tree, const std::string& path = "") {
     if (node == nullptr) {
         return;
     }
-    std::string newPath = path;
+
+    string newPath = path;
+
+    // Append current node's data to the path
     if (!newPath.empty()) {
         newPath += "/";
     }
    
-
-
-
-
     for (TreeNode* child : node->children) {
         pruneEmptyFolder(child, tree, newPath);
     }
 }
 
 // Given a partial or complete filename (no path). Generate the path for the given file / folder (Depth first Search)
-std::string findFileOrFolder(TreeNode* node, const std::string& target, const std::string& path = "") {
+string findFileOrFolder(TreeNode* node, const string& target, const string& path = "") {
     if (node == nullptr) {
         return "";
     }
-    std::string newPath = path;
+    string newPath = path;
+
+    // Append current node's data to the path
     if (!newPath.empty()) {
         newPath += "/";
     }
     newPath += node->data;
-    if (node->data.find(target) != std::string::npos) {
+
+    // Check if the target string is found in the current node's data
+    if (node->data.find(target) != string::npos) {
         return newPath;
     }
+
+    // Recursively search in each child node
     for (TreeNode* child : node->children) {
         std::string result = findFileOrFolder(child, target, newPath);
         if (!result.empty()) {
@@ -65,11 +73,9 @@ std::string findFileOrFolder(TreeNode* node, const std::string& target, const st
     return "";
 }
 
+
 // Display the contents of a given folder
 std::string folderContent(Tree tree, const std::string& targetFolder) {
-  
-   
-
 
     std::string contentString = "Content of Given Folder: " + targetFolder + "\n";
 

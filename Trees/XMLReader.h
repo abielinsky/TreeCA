@@ -9,17 +9,17 @@
 using namespace std;
 
 // Check there is Root Node of XML Document
-bool hasRootElement(const std::string& filename) {
-    std::ifstream file(filename);
+bool hasRootElement(const string& filename) {
+    ifstream file(filename);
     if (!file.is_open()) {
         std::cerr << "Error: Could not open the file." << std::endl;
         return false;
     }
 
-    std::string xmlContent;
-    std::string line;
+    string xmlContent;
+    string line;
 
-    while (std::getline(file, line)) {
+    while (getline(file, line)) {
         xmlContent += line;
     }
 
@@ -28,16 +28,16 @@ bool hasRootElement(const std::string& filename) {
     size_t openTagStart = xmlContent.find('<');
     size_t openTagEnd = xmlContent.find('>');
 
-    if (openTagStart == std::string::npos || openTagEnd == std::string::npos) {
-        std::cout << "Invalid XML: Missing or mismatched opening or closing tags" << std::endl;
+    if (openTagStart == string::npos || openTagEnd == string::npos) {
+        cout << "Invalid XML: Missing or mismatched opening or closing tags" << endl;
         return false;
     }
 
-    std::string openTag = xmlContent.substr(openTagStart + 1, openTagEnd - openTagStart - 1);
+    string openTag = xmlContent.substr(openTagStart + 1, openTagEnd - openTagStart - 1);
 
     size_t closeTagStart = xmlContent.find("</" + openTag + ">");
-    if (closeTagStart == std::string::npos) {
-        std::cout << "ERROR: XML documents must have a root element!" << std::endl;
+    if (closeTagStart == string::npos) {
+        std::cout << "ERROR: XML documents must have a root element!" << endl;
         return false;
     }
 
@@ -45,16 +45,16 @@ bool hasRootElement(const std::string& filename) {
 }
 
 // Validate XML elements must have a closing tag and XML elements must be properly nested
-bool validateXML(const std::string& filename) {
+bool validateXML(const string& filename) {
     std::ifstream xmlFile(filename);
 
     if (!xmlFile.is_open()) {
-        std::cerr << "Failed to open the XML file." << std::endl;
+        cout << "Failed to open the XML file." << endl;
         return false;
     }
 
-    std::stack<std::string> openTags;
-    std::string tag;
+    stack<string> openTags;
+    string tag;
 
     char ch;
     while (xmlFile.get(ch)) {
@@ -66,13 +66,13 @@ bool validateXML(const std::string& filename) {
 
             if (tag[0] == '/') {
                 if (openTags.empty()) {
-                    std::cerr << "Error: Found a closing tag without a corresponding opening tag." << std::endl;
+                    cout << "Error: Found a closing tag without a corresponding opening tag." << std::endl;
                     xmlFile.close();
                     return false;
                 }
 
                 if (tag.substr(1) != openTags.top()) {
-                    std::cerr << "Error: Mismatched closing tag: " << tag << std::endl;
+                    cout << "Error: Mismatched closing tag: " << tag << std::endl;
                     xmlFile.close();
                     return false;
                 }
@@ -80,7 +80,7 @@ bool validateXML(const std::string& filename) {
                 openTags.pop();
             }
             else {
-                if (tag.find(" ") != std::string::npos) {
+                if (tag.find(" ") != string::npos) {
                     tag = tag.substr(0, tag.find(" "));
                 }
                 openTags.push(tag);
@@ -91,11 +91,11 @@ bool validateXML(const std::string& filename) {
     xmlFile.close();
 
     if (!openTags.empty()) {
-        std::cerr << "Error: Some opening tags are not closed." << std::endl;
+        cout << "Error: Some opening tags are not closed." << endl;
         return false;
     }
 
-    std::cout << "XML file is valid - all elements have closing tags." << std::endl;
+    cout << "XML file is valid - all elements have closing tags." << endl;
     return true;
 }
 
@@ -103,25 +103,25 @@ bool validateXML(const std::string& filename) {
 
 // XML parsing
 struct XMLNode {
-    std::string name;
-    std::string size;
-    std::vector<XMLNode> children;
+    string name;
+    string size;
+    vector<XMLNode> children;
 };
 
-bool parseXML(std::ifstream& file, XMLNode& parent) {
-    std::string line;
-    while (std::getline(file, line)) {
-        if (line.find("</folder>") != std::string::npos) {
+bool parseXML(ifstream& file, XMLNode& parent) {
+    string line;
+    while (getline(file, line)) {
+        if (line.find("</folder>") != string::npos) {
             return true; // End of folder
         }
-        else if (line.find("<folder") != std::string::npos) {
+        else if (line.find("<folder") != string::npos) {
             XMLNode folder;
             size_t namePos = line.find("name=\"") + 6;
             size_t sizePos = line.find("size=\"") + 6;
             size_t nameEnd = line.find("\"", namePos);
             size_t sizeEnd = line.find("\"", sizePos);
 
-            if (namePos != std::string::npos && sizePos != std::string::npos) {
+            if (namePos != string::npos && sizePos != string::npos) {
                 folder.name = line.substr(namePos, nameEnd - namePos);
                 folder.size = line.substr(sizePos, sizeEnd - sizePos);
                 parent.children.push_back(folder);
@@ -138,7 +138,7 @@ bool parseXML(std::ifstream& file, XMLNode& parent) {
             size_t fileNameEnd = line.find("\"", fileNamePos);
             size_t fileSizeEnd = line.find("\"", fileSizePos);
 
-            if (fileNamePos != std::string::npos && fileSizePos != std::string::npos) {
+            if (fileNamePos != string::npos && fileSizePos != string::npos) {
                 file.name = line.substr(fileNamePos, fileNameEnd - fileNamePos);
                 file.size = line.substr(fileSizePos, fileSizeEnd - fileSizePos);
                 parent.children.push_back(file);
@@ -150,16 +150,16 @@ bool parseXML(std::ifstream& file, XMLNode& parent) {
 }
 
 // Helper Method to check String is completely numeric or not
-bool isNumber(const std::string& str) {
+bool isNumber(const string& str) {
     try {
         size_t pos;
-        int value = std::stoi(str, &pos);
+        int value = stoi(str, &pos);
         return pos == str.length();
     }
-    catch (const std::invalid_argument& e) {
+    catch (const invalid_argument& e) {
         return false;
     }
-    catch (const std::out_of_range& e) {
+    catch (const out_of_range& e) {
         return false;
     }
 }
@@ -175,17 +175,7 @@ Tree& LoadXML(const XMLNode& node, Tree tree, int level = 0) {
             }
         }
     }
-    else {
-        for (const XMLNode& child : node.children) {
-            if (isNumber(child.size)) {
-                tree.insert(node.name, child.name, stoi(child.size));
-            }
-        }
-    }
-
-    for (const XMLNode& child : node.children) {
-        LoadXML(child, tree, level + 1);
-    }
+   
 
     return tree;
 }
