@@ -2,6 +2,7 @@
 #include "DList.h"
 #include <iostream>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -126,6 +127,38 @@ public:
     }
 
 
+    // Determine the amount of memory used by a given folder using a breadth-first algorithm
+    int memoryUsage(TreeNode* root) {
+        if (root == nullptr) {
+            return 0;
+        }
+
+        int totalSize = 0;
+        queue<TreeNode*> nodeQueue;
+        nodeQueue.push(root);
+
+        while (!nodeQueue.empty()) {
+            TreeNode* currentNode = nodeQueue.front();
+            nodeQueue.pop();
+
+            totalSize += currentNode->size;
+
+            for (TreeNode* child : currentNode->children) {
+                nodeQueue.push(child);
+            }
+        }
+        return totalSize;
+    }
+
+    // Get the size of the specified folder (excluding subfolders)
+    int getSizeOfFolder(const string& targetFolder) {
+        if (root == nullptr) {
+            cout << "Tree is empty" << endl;
+            return 0;
+        }
+        return getSizeOfFolder(root, targetFolder);
+    }
+
 
 
 
@@ -202,6 +235,23 @@ private:
         }
 
         return count;
+    }
+
+
+
+
+    // Recursive helper function to get the size of the specified folder (excluding subfolders)
+    int getSizeOfFolder(TreeNode* node, const string& targetFolder) {
+        if (node->data == targetFolder) {
+            return node->size; // Return the size of the specified folder
+        }
+
+        int size = 0;
+        for (size_t i = 0; i < node->children.size(); ++i) {
+            size += getSizeOfFolder(node->children[i], targetFolder);
+        }
+
+        return size;
     }
 
 

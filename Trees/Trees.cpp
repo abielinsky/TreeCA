@@ -79,8 +79,29 @@ void stage2() {
 			int countInsideFolder = tree.countNodeInFolder(userFolder);
 			cout << "Number of nodes inside '" << userFolder << "' folder: " << countInsideFolder << endl;
 
+			//
 
 		}
+
+		else if (choice == 3) {
+			cout << endl;
+			
+			// Determine the amount of memory used by a given folder using a breadth first algorithm.
+			cout << "Total Memory Usage: " << memoryUsage(tree.root) << " bytes" << endl;
+			
+			// Get user input for the folder name
+			string userFolder;
+			cout << "Enter the folder name: ";
+			cin >> userFolder;
+
+			// Get the size of the specified folder (excluding subfolders)
+			int sizeOfFolder = tree.getSizeOfFolder(userFolder);
+			cout << "Size of '" << userFolder << "' folder: " << sizeOfFolder << " bytes" << endl;
+
+
+		}
+
+
 
 
 
