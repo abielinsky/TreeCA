@@ -6,6 +6,13 @@
 #include <iostream>
 #include <queue>
 
+#include "XMLReader.h"
+#include "FileProcess.h"
+#include <fstream>
+#include <stack>
+#include <vector>
+
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
@@ -13,29 +20,28 @@
 
 using namespace std;
 
+Tree tree;
 
-/*
-	The indented parenthetic representation of a tree
-*/
+void stage1() {
+	std::ifstream file("document.xml");
+	if (!file.is_open()) {
+		std::cerr << "Failed to open the XML file." << std::endl;
+		return;
+	}
+	if (!hasRootElement("document.xml") && !validateXML("document.xml")) {
+		return;
+	}
 
-/*
-void displayTree(TreeIterator<string> iter, string indent)
-{
-	cout << indent << iter.node->data ;
-	if (iter.childValid())
-	{
-		cout << "(" <<endl;
-	
-	while (iter.childValid())
-	{
-		TreeIterator<string> iter2(iter.childIter.currentNode->data);
-		displayTree(iter2, "\t" + indent);
-		iter.childForth();
-	}
-	cout <<indent<< ")" ;
-	}
-	cout << endl;
+	XMLNode root;
+
+	parseXML(file, root);
+	tree = LoadXML(root, tree);
+	tree.display();
+
 }
+
+
+
 /*
 	Print using a Depth First Search
 */
@@ -180,10 +186,33 @@ int main()
 
 
 
-	/*
-	question1();
-	question2();
-	*/
 
-    return 0;
+
+	int choice = -1;
+	while (choice != 0) {
+		std::cout << "Which one you want to run!" << std::endl;
+		std::cout << "Stage 1) Load XML" << std::endl;
+		std::cout << "Stage 2) File Process Management (cmd)" << std::endl;
+		std::cout << "Stage 3) File Process Management (gui)" << std::endl;
+		std::cout << "0) for Exit" << std::endl;
+
+		std::cout << "Enter Your Choice: ";
+		std::cin >> choice;
+
+		if (choice == 1) {
+			stage1();
+		}
+		else if (choice == 2) {
+			//stage2();
+		}
+		else if (choice == 3) {
+		//	stage3();
+		}
+		else if (choice != 0) {
+			std::cout << "Wrong Choice" << std::endl;
+		}
+	}
+	return 0;
+
+
 }

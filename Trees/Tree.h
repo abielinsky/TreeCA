@@ -81,7 +81,7 @@ public:
             std::cout << "Tree is empty." << std::endl;
         }
         else {
-        //    display(root, " ");
+            display(root, " ");
         }
     }
 
@@ -105,10 +105,19 @@ private:
                 }
             }
             node->children.push_back(new TreeNode(val, size));
+
             return;
         }
         for (auto child : node->children) {
             insertRec(child, parentVal, val, size);
+        }
+    }
+
+
+    void display(TreeNode* node, const std::string& prefix) {
+        std::cout << prefix << "|-" << node->data << " - (" << node->size << ") bytes" << std::endl;
+        for (size_t i = 0; i < node->children.size(); ++i) {
+            display(node->children[i], prefix + "  |");
         }
     }
 
