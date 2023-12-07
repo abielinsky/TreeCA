@@ -66,9 +66,20 @@ void stage2() {
 			cout << endl;
 			tree.display();
 		}
-		if (choice == 2) {
+		else if (choice == 2) {
 			cout << endl;
 			cout << "number of items: " << tree.countNode() << endl;
+
+			// Get user input for the folder name
+			string userFolder;
+			cout << "Enter the folder name: ";
+			cin >> userFolder;
+
+			// Get the count of nodes inside the user-specified folder
+			int countInsideFolder = tree.countNodeInFolder(userFolder);
+			cout << "Number of nodes inside '" << userFolder << "' folder: " << countInsideFolder << endl;
+
+
 		}
 
 

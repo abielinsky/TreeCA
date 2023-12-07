@@ -116,6 +116,15 @@ public:
 
     }
 
+    // Count the number of nodes inside the specified folder and its subfolders
+    int countNodeInFolder(const string& targetFolder) {
+        if (root == nullptr) {
+            cout << "Tree is empty" << endl;
+            return 0;
+        }
+        return countNodeInFolder(root, targetFolder);
+    }
+
 
 
 
@@ -169,6 +178,31 @@ private:
         }
     }
 
+
+    // Recursive helper function to count the number of nodes inside the specified folder and its subfolders
+    int countNodeInFolder(TreeNode* node, const string& targetFolder) {
+        if (node->data == targetFolder) {
+            return countAllNodes(node); // Count all nodes starting from the target folder
+        }
+
+        int count = 0;
+        for (size_t i = 0; i < node->children.size(); ++i) {
+            count += countNodeInFolder(node->children[i], targetFolder);
+        }
+
+        return count;
+    }
+
+    // Recursive helper function to count all nodes starting from a given node
+    int countAllNodes(TreeNode* node) {
+        int count = 1; // Count the current node
+
+        for (size_t i = 0; i < node->children.size(); ++i) {
+            count += countAllNodes(node->children[i]);
+        }
+
+        return count;
+    }
 
 
 
