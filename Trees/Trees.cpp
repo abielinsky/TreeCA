@@ -98,8 +98,38 @@ void stage2() {
 			int sizeOfFolder = tree.getSizeOfFolder(userFolder);
 			cout << "Size of '" << userFolder << "' folder: " << sizeOfFolder << " bytes" << endl;
 
+		}
+
+		else if (choice == 4) {
+			cout << endl;
+			tree.display();
+			cout << endl;
+			while (true) {
+				int prevCount = tree.countNode();
+				pruneEmptyFolder(tree.root, tree);
+				if (tree.countNode() == prevCount) {
+					break;
+				}
+			}
+			tree.display(); 
+
+			/*
+			// Display the tree before pruning
+			cout << "Tree before pruning:" << endl;
+			tree.display();
+
+			// Prune empty folders
+			tree.pruneEmptyFolders();
+
+			// Display the tree after pruning
+			cout << "\nTree after pruning:" << endl;
+			tree.display();*/
+
 
 		}
+
+
+
 
 
 

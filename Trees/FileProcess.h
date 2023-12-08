@@ -32,14 +32,16 @@ void pruneEmptyFolder(TreeNode* node, Tree tree, const std::string& path = "") {
     if (node == nullptr) {
         return;
     }
-
-    string newPath = path;
-
-    // Append current node's data to the path
+    std::string newPath = path;
     if (!newPath.empty()) {
         newPath += "/";
     }
-   
+    newPath += node->data;
+    if (node->children.empty()) {
+        if (node->data.find('.') == std::string::npos) {
+            tree.remove(node->data);
+        }
+    }
     for (TreeNode* child : node->children) {
         pruneEmptyFolder(child, tree, newPath);
     }

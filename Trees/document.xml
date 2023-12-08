@@ -1,26 +1,22 @@
 <filesystem>
-	
+
 	<folder name="Pictures" size="456789">
 		<folder name="Vacation" size="123456">
 			<file name="Beach.jpg" size="23456"></file>
 			<file name="Mountains.jpg" size="34567"></file>
 			<folder name="Wife" size="123456">
-			<file name="Love.jpg" size="23456"></file>
+				<file name="Love.jpg" size="23456"></file>
 			</folder>
 		</folder>
 		<file name="Family.jpg" size="98765"></file>
 	</folder>
-	
+
 	<folder name="Music" size="987654">
 		<file name="Song1.mp3" size="456789"></file>
 		<file name="Song2.mp3" size="567890"></file>
 		<file name="Song3.mp3" size="678901"></file>
-		
-		<folder name="Music2" size="987654">
-		<file name="Song4.mp3" size="685695"></file>
+		<folder name="NewFolder2" size="987654">
 		</folder>
 	</folder>
-
-
 	
 </filesystem>

@@ -3,6 +3,8 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <fstream>
+#include "fstream"
 
 using namespace std;
 
@@ -56,6 +58,24 @@ public:
 
     // Constructor to initialize a tree node with data and size
 	TreeNode(const string& val, int fileSize) : data(val), size(fileSize) {}
+
+
+    // Recursive function to prune empty folders
+    bool pruneEmptyFolders() {
+        for (auto it = children.begin(); it != children.end(); ) {
+            if ((*it)->pruneEmptyFolders()) {
+                delete* it;
+                it = children.erase(it);
+            }
+            else {
+                ++it;
+            }
+        }
+
+        // Return true if this folder is empty and has been pruned
+        return size == 0 && children.empty();
+    }
+
 };
 
 
@@ -160,6 +180,35 @@ public:
     }
 
 
+    
+    // Prune empty folders from the tree
+    void pruneEmptyFolders() {
+        if (root != nullptr) {
+            root->pruneEmptyFolders();
+            if (root->size == 0 && root->children.empty()) {
+                delete root;
+                root = nullptr;
+            }
+        }
+    }
+
+
+
+    bool remove(const std::string& val) {
+        if (root == nullptr) {
+            std::cout << "Tree is empty." << std::endl;
+            return false;
+        }
+
+        if (root->data == val) {
+            std::cout << "Cannot remove the root node using this method." << std::endl;
+            return false;
+        }
+
+        return removeRec(root, val);
+    }
+
+
 
 
 private:
@@ -254,6 +303,23 @@ private:
         return size;
     }
 
+
+    bool removeRec(TreeNode* parent, const std::string& val) {
+        for (auto it = parent->children.begin(); it != parent->children.end(); ++it) {
+            if ((*it)->data == val) {
+                delete (*it);
+                parent->children.erase(it);
+                return true;
+            }
+            else {
+                if (removeRec(*it, val)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 
 
 };
