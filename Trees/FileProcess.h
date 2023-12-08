@@ -99,11 +99,11 @@ string folderContent(Tree tree, const string& targetFolder) {
     // Iterate through each child of the target folder node
     for (TreeNode* child : curNode->children) {
         // Check if the child represents a subfolder or a file
-        if (child->data.find('.') == std::string::npos) {
+        if (child->data.find('.') == string::npos) {
             contentString += "Folder: " + child->data + "\n";
         }
         else {
-            contentString += "File: " + child->data + " - Size: " + std::to_string(child->size) + " bytes\n";
+            contentString += "File: " + child->data + " - Size: " + to_string(child->size) + " bytes\n";
         }
     }
 

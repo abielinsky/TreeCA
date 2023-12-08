@@ -52,6 +52,8 @@ int Tree<T>::count()
 // Define a TreeNode class to represent nodes in the tree
 class TreeNode {
 public:
+
+    // -------------->  TEST_METHOD(TestTreeNodeInitialization) <----------------------
 	string data;
 	int size;
 	vector<TreeNode*> children;
@@ -194,25 +196,26 @@ public:
 
 
 
-    bool remove(const std::string& val) {
+    bool remove(const string& val) {
         if (root == nullptr) {
-            std::cout << "Tree is empty." << std::endl;
+            cout << "Tree is empty." << std::endl;
             return false;
         }
 
         if (root->data == val) {
-            std::cout << "Cannot remove the root node using this method." << std::endl;
+            cout << "Cannot remove the root node using this method." << std::endl;
             return false;
         }
 
         return removeRec(root, val);
     }
 
+
     // Find a node with a specific value in the tree
-    TreeNode* find(const std::string& val) {
+    TreeNode* find(const string& val) {
         // Check if the tree is empty
         if (root == nullptr) {
-            std::cout << "Tree is empty." << std::endl;
+            cout << "Tree is empty." << std::endl;
             return nullptr;
         }
 
