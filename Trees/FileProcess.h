@@ -47,33 +47,39 @@ void pruneEmptyFolder(TreeNode* node, Tree tree, const std::string& path = "") {
     }
 }
 
-// Given a partial or complete filename (no path). Generate the path for the given file / folder (Depth first Search)
+
+
+// Find a given file/folder given a partial or complete filename using Depth-First Search (DFS)
 string findFileOrFolder(TreeNode* node, const string& target, const string& path = "") {
+    // If the current node is null, return an empty string (not found)
     if (node == nullptr) {
         return "";
     }
-    string newPath = path;
 
-    // Append current node's data to the path
-    if (!newPath.empty()) {
-        newPath += "/";
-    }
-    newPath += node->data;
+    // Construct the new path by appending the current node's data to the given path
+    string newPath = path + (path.empty() ? "" : "/") + node->data;
 
     // Check if the target string is found in the current node's data
     if (node->data.find(target) != string::npos) {
         return newPath;
     }
 
-    // Recursively search in each child node
-    for (TreeNode* child : node->children) {
-        std::string result = findFileOrFolder(child, target, newPath);
-        if (!result.empty()) {
+    
+    for (TreeNode* child : node->children) {   // Recursively search in each child node
+       
+        string result = findFileOrFolder(child, target, newPath);   // Recursively search in the child node, updating the path
+        if (!result.empty()) {     // If the result is not empty (file/folder found), return it
             return result;
         }
     }
+
+    // If the target is not found in the current node or its children, return an empty string
     return "";
 }
+
+
+
+
 
 
 // Display the contents of a given folder

@@ -16,6 +16,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
+#include <filesystem>
 
 using namespace std;
 
@@ -126,6 +127,15 @@ void stage2() {
 			tree.display();*/
 
 
+		}
+
+
+		else if (choice == 5) {			
+			string target;
+			cout << endl << "Enter the file/folder name to search for: ";
+			cin >> target;
+			cout << findFileOrFolder(tree.root, target) << std::endl;
+		
 		}
 
 
