@@ -83,10 +83,29 @@ string findFileOrFolder(TreeNode* node, const string& target, const string& path
 
 
 // Display the contents of a given folder
-std::string folderContent(Tree tree, const std::string& targetFolder) {
+string folderContent(Tree tree, const string& targetFolder) {
 
-    std::string contentString = "Content of Given Folder: " + targetFolder + "\n";
+    // Find the node corresponding to the target folder in the tree
+    TreeNode* curNode = tree.find(targetFolder);
 
+    // Check if the folder is not found
+    if (curNode == nullptr) {
+        return "Folder not found: " + targetFolder;
+    }
+
+    // Initialize a string to store the folder content information
+    string contentString = "Content of Given Folder: " + targetFolder + "\n";
+
+    // Iterate through each child of the target folder node
+    for (TreeNode* child : curNode->children) {
+        // Check if the child represents a subfolder or a file
+        if (child->data.find('.') == std::string::npos) {
+            contentString += "Folder: " + child->data + "\n";
+        }
+        else {
+            contentString += "File: " + child->data + " - Size: " + std::to_string(child->size) + " bytes\n";
+        }
+    }
 
     return contentString;
 }

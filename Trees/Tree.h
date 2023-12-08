@@ -208,12 +208,24 @@ public:
         return removeRec(root, val);
     }
 
+    // Find a node with a specific value in the tree
+    TreeNode* find(const std::string& val) {
+        // Check if the tree is empty
+        if (root == nullptr) {
+            std::cout << "Tree is empty." << std::endl;
+            return nullptr;
+        }
+
+        return findRec(root, val);
+    }
+
     
 
 
 
 
 private:
+
 
     // Helper function for recursive insertion
     void insertRec(TreeNode* node, const string& parentVal, const string& val, int size = 0) {
@@ -321,6 +333,28 @@ private:
         }
 
         return false;
+    }
+
+
+
+    // Recursive helper function to find a node with a specific value in the tree
+    TreeNode* findRec(TreeNode* node, const std::string& val) {
+        // Check if the current node's data matches the target value
+        if (node->data == val) {
+            return node;
+        }
+
+        // Recursively search in each child node
+        for (auto child : node->children) {
+            TreeNode* found = findRec(child, val);
+
+            // If the node is found in the current subtree, return it
+            if (found != nullptr) {
+                return found;
+            }
+        }
+
+        return nullptr;
     }
 
 

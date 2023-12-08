@@ -125,10 +125,7 @@ void stage2() {
 			// Display the tree after pruning
 			cout << "\nTree after pruning:" << endl;
 			tree.display();*/
-
-
 		}
-
 
 		else if (choice == 5) {			
 			string target;
@@ -138,11 +135,12 @@ void stage2() {
 		
 		}
 
-
-
-
-
-
+		else if (choice == 6) {
+			string targetFolder;
+			cout << endl << "Enter the folder name to display contents: ";
+			cin >> targetFolder;
+			cout << folderContent(tree, targetFolder);
+		}
 
 
 		else {
