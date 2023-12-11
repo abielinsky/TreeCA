@@ -159,6 +159,8 @@
     <ClInclude Include="DListIterator.h" />
     <ClInclude Include="DListNode.h" />
     <ClInclude Include="FileProcess.h" />
+    <ClInclude Include="font_resource.h" />
+    <ClInclude Include="GUI.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="TreeIterator.h" />
     <ClInclude Include="XMLReader.h" />

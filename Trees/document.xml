@@ -1,22 +1,57 @@
 <filesystem>
 
-	<folder name="Pictures" size="456789">
-		<folder name="Vacation" size="123456">
-			<file name="Beach.jpg" size="23456"></file>
-			<file name="Mountains.jpg" size="34567"></file>
-			<folder name="Wife" size="123456">
-				<file name="Love.jpg" size="23456"></file>
+	<folder name="Programming" size="1000">
+		<folder name="Software" size="2000">
+			<file name="Java.doc" size="1000"></file>
+			<file name="Python.doc" size="3000"></file>
+			<folder name="Design" size="1000">
+				<file name="Photoshop.jpg" size="5000"></file>
+				<folder name="EmptyFolder1" size="4000">
+				</folder>
+				<folder name="EmptyFolder2" size="3000">
+					<folder name="EmptyFolder1" size="2000">
+					</folder>
+					<folder name="EmptyFolder2" size="1000">
+						<folder name="EmptyFolder1" size="4000">
+						</folder>
+						<folder name="EmptyFolder2" size="3000">
+						</folder>
+					</folder>
+				</folder>
 			</folder>
 		</folder>
-		<file name="Family.jpg" size="98765"></file>
+		<file name="design.png" size="5000"></file>
 	</folder>
 
-	<folder name="Music" size="987654">
-		<file name="Song1.mp3" size="456789"></file>
-		<file name="Song2.mp3" size="567890"></file>
-		<file name="Song3.mp3" size="678901"></file>
-		<folder name="NewFolder2" size="987654">
+	<folder name="Engineering" size="4000">
+		<folder name="Mechanical" size="2000">
+			<file name="Robotics.doc" size="6000"></file>
+			<file name="Thermodynamics.doc" size="2000"></file>
+			<folder name="CAD_Design" size="4000">
+				<file name="AutoCAD.jpg" size="4000"></file>
+				<folder name="EmptyFolder1" size="2000">
+				</folder>
+				<folder name="EmptyFolder2" size="3000">
+				</folder>
+			</folder>
+			<folder name="EmptyFolder1" size="1000">
+			</folder>
+			<folder name="EmptyFolder2" size="3000">
+			</folder>
 		</folder>
+		<file name="Blueprint.png" size="2000"></file>
+	</folder>
+
+
+	<folder name="Lectures" size="2000">
+		<file name="Algorithms.doc" size="2000"></file>
+		<file name="Data.doc" size="3000"></file>
+		<file name="iot.doc" size="5000"></file>
+		<folder name="EmptyFolder1" size="1000">
+		</folder>
+		<folder name="EmptyFolder2" size="4000">
+		</folder>
+	
 	</folder>
 	
 </filesystem>

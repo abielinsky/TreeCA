@@ -17,6 +17,11 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <filesystem>
+#include "GUI.h"
+#include "font_resource.h"  
+
+
+const std::string fontPath = "F:/00_COLLEGE_DKI_SOFTWARE_DEVELOPMENT/23_ALGORITHMS_AND_DATA_STRUCTURES/00_TreeCA/TreeCA/fonts/arial.ttf";
 
 using namespace std;
 
@@ -146,6 +151,123 @@ void stage2() {
 		else {
 			cout << " Invalid choice. Please select a valid option" << endl;
 		}
+	}
+}
+
+
+// Main function to create the main directory operations GUI window
+void stage3() {
+	// Create the main window
+	sf::RenderWindow window(sf::VideoMode(800, 600), "Directory Operations GUI");
+
+	// Load font
+	sf::Font font;
+	if (!font.loadFromFile(FONT_PATH)) {
+		return; // Return if font loading fails
+	}
+
+	// Create text for the welcome message
+	sf::Text text;
+	text.setFont(font);
+	text.setCharacterSize(30);
+	text.setFillColor(sf::Color::Red);
+	text.setString("Welcome to the Directory Operations Program");
+
+	float centerX = window.getSize().x / 2.0f;
+	float centerY = 30;
+
+	sf::FloatRect textRect = text.getLocalBounds();
+	text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+	text.setPosition(centerX, centerY);
+
+	const int buttonWidth = 200;
+	const int buttonHeight = 50;
+	sf::RectangleShape buttons[6];
+	sf::Text buttonLabels[6];
+
+	float buttonSpacing = 10;
+	float currentY = centerY + textRect.height / 2.0f + buttonSpacing;
+
+	std::string customButtonLabels[6] = {
+		"Display Directory Structure",
+		"Number of items",
+		"Memory usage",
+		"Prune Empty Folders",
+		"Find File/Folder",
+		"Display Folder Contents"
+	};
+
+	// Create buttons and labels
+	for (int i = 0; i < 6; ++i) {
+		buttonLabels[i].setFont(font);
+		buttonLabels[i].setCharacterSize(20);
+		buttonLabels[i].setFillColor(sf::Color::Magenta);
+		buttonLabels[i].setString(customButtonLabels[i]);
+
+		float buttonWidth = buttonLabels[i].getLocalBounds().width + 20;
+
+		buttons[i].setSize(sf::Vector2f(buttonWidth, buttonHeight));
+		buttons[i].setFillColor(sf::Color::Cyan);
+		buttons[i].setPosition(centerX - buttonWidth / 2.0f, currentY);
+
+		sf::FloatRect labelRect = buttonLabels[i].getLocalBounds();
+		buttonLabels[i].setOrigin(labelRect.left + labelRect.width / 2.0f, labelRect.top + labelRect.height / 2.0f);
+		buttonLabels[i].setPosition(centerX, currentY + buttonHeight / 2.0f);
+
+		currentY += buttonHeight + buttonSpacing;
+	}
+
+	// Handle events and display the main window
+	while (window.isOpen()) {
+		sf::Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed) {
+				window.close();
+			}
+			if (event.type == sf::Event::MouseButtonPressed) {
+				if (event.mouseButton.button == sf::Mouse::Left) {
+					sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+					for (int i = 0; i < 6; ++i) {
+						if (buttons[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+
+							// Check the button index to perform the corresponding action
+							if (i == 0) {
+								innerWindow("Tree Structure", tree.getTree(), FONT_PATH);
+							}
+							else if (i == 1) {
+								std::string items = "Number of nodes in a tree: " + std::to_string(tree.countNode());
+								innerWindow("Number of Items in a tree", items, FONT_PATH);
+							}
+							else if (i == 2) {
+								std::string memoryInBytes = "Total Memory Usage: " + std::to_string(tree.memoryUsage(tree.root)) + std::string(" Bytes");
+								innerWindow("Total Memory Usage", memoryInBytes, FONT_PATH);
+							}
+							else if (i == 3) {
+								tree.pruneEmptyFolders();
+								innerWindow("Pruned Tree Structure", tree.getTree(), FONT_PATH);
+							}
+							else if (i == 4) {
+								innerInputWindow(tree, "Complete File Path", "Enter File/Folder name for search", i, FONT_PATH);
+							}
+							else if (i == 5) {
+								innerInputWindow(tree, "Complete File Path", "Enter Folder name for get all Content of folder", i, FONT_PATH);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		window.clear(sf::Color(50, 50, 50)); // Background color
+
+		window.draw(text);
+
+		for (int i = 0; i < 6; ++i) {
+			window.draw(buttons[i]);
+			window.draw(buttonLabels[i]);
+		}
+
+		window.display();
 	}
 }
 
@@ -320,7 +442,7 @@ int main()
 			stage2();
 		}
 		else if (choice == 3) {
-		//	stage3();
+			stage3();
 		}
 		else if (choice != 0) {
 			cout << "Wrong Choice" << std::endl;

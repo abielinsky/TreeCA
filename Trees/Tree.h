@@ -100,7 +100,7 @@ public:
     // Function to insert a node into the tree
     void insert(const string& parentVal, const string& val, int size = 0) {
         if (root == nullptr) {
-            cout << "Root is not set. Use setRoot() to set the root node." << std::endl;
+            cout << "Root is not set. Use setRoot() to set the root node." << endl;
             return;
         }
         insertRec(root, parentVal, val, size);
@@ -109,7 +109,7 @@ public:
     // Function to display the tree structure
     void display() {
         if (root == nullptr) {
-            cout << "Tree is empty." << std::endl;
+            cout << "Tree is empty." << endl;
         }
         else {
             display(root, " ");
@@ -198,12 +198,12 @@ public:
 
     bool remove(const string& val) {
         if (root == nullptr) {
-            cout << "Tree is empty." << std::endl;
+            cout << "Tree is empty." << endl;
             return false;
         }
 
         if (root->data == val) {
-            cout << "Cannot remove the root node using this method." << std::endl;
+            cout << "Cannot remove the root node using this method." << endl;
             return false;
         }
 
@@ -215,7 +215,7 @@ public:
     TreeNode* find(const string& val) {
         // Check if the tree is empty
         if (root == nullptr) {
-            cout << "Tree is empty." << std::endl;
+            cout << "Tree is empty." << endl;
             return nullptr;
         }
 

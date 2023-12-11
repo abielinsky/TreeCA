@@ -38,12 +38,12 @@ namespace TreeTest
         {
             // Arrange
             Tree tree;
-            string rootData = "Vacation";
+            string rootData = "Programming";
             tree.setRoot(rootData);
 
-            string parentData = "Vacation";
-            string childData = "Beach.jpg";
-            int childSize = 23456;
+            string parentData = "Programming";
+            string childData = "Software.doc";
+            int childSize = 2000;
 
             tree.insert(parentData, childData, childSize);
 
@@ -57,26 +57,22 @@ namespace TreeTest
 
         TEST_METHOD(TestDisplay)
         {
-            // Arrange
-            Tree tree;
-            string rootData = "Pictures";
-            tree.setRoot(rootData);
+            Tree fileSystemTree;
+            string rootFolderName = "filesystem";
+            fileSystemTree.setRoot(rootFolderName);
 
             // Redirect cout to capture the output
             stringstream capturedOutput;
             streambuf* coutBuffer = cout.rdbuf();
             cout.rdbuf(capturedOutput.rdbuf());
 
-            // Insert nodes to create a sample tree
-            tree.insert("Pictures", "Vacation");
-            tree.insert("Vacation", "Beach.jpg", 23456);
-            tree.insert("Vacation", "Mountains.jpg", 34567);
-            tree.insert("Vacation", "Wife");
-            tree.insert("Wife", "Love.jpg", 23456);
-            tree.insert("Pictures", "Family.jpg", 98765);
+            // Insert nodes to create a sample tree based on your provided XML structure
+            fileSystemTree.insert("filesystem", "Programming", 1000);
+            fileSystemTree.insert("Programming", "Software", 2000);
+            fileSystemTree.insert("Software", "Java.doc", 1000);       
 
             // Call the display function
-            tree.display();
+            fileSystemTree.display();
 
             // Restore cout
             cout.rdbuf(coutBuffer);
@@ -87,20 +83,18 @@ namespace TreeTest
 
 
 
+
         TEST_METHOD(TestGetTree)
         {
             // Arrange
-            Tree tree;
-            string rootData = "Pictures";
-            tree.setRoot(rootData);
+            Tree fileSystemTree;
+            string rootFolderName = "filesystem";
+            fileSystemTree.setRoot(rootFolderName);
 
             // Add some nodes to the tree for testing
-            tree.insert("Pictures", "Vacation");
-            tree.insert("Vacation", "Beach.jpg", 23456);
-            tree.insert("Vacation", "Mountains.jpg", 34567);
-            tree.insert("Vacation", "Wife");
-            tree.insert("Wife", "Love.jpg", 23456);
-            tree.insert("Pictures", "Family.jpg", 98765);
+            fileSystemTree.insert("filesystem", "Programming", 1000);
+            fileSystemTree.insert("Programming", "Software", 2000);
+            fileSystemTree.insert("Software", "Java.doc", 1000);
 
             // Redirect cout to capture the output
             stringstream capturedOutput;
@@ -108,36 +102,34 @@ namespace TreeTest
             cout.rdbuf(capturedOutput.rdbuf());
 
             // Call the getTree function
-            string treeStructure = tree.getTree();
+            string treeStructure = fileSystemTree.getTree();
 
             // Restore cout
             cout.rdbuf(coutBuffer);
 
             // Assert
             // Check if the output contains the expected content
-            Assert::IsTrue(treeStructure.find("Pictures") != string::npos);
-            Assert::IsTrue(treeStructure.find("Vacation") != string::npos);
-            Assert::IsTrue(treeStructure.find("Beach.jpg") != string::npos);
-            Assert::IsTrue(treeStructure.find("Mountains.jpg") != string::npos);
-            Assert::IsTrue(treeStructure.find("Wife") != string::npos);
-            Assert::IsTrue(treeStructure.find("Love.jpg") != string::npos);
-            Assert::IsTrue(treeStructure.find("Family.jpg") != string::npos);
+            Assert::IsTrue(treeStructure.find("filesystem") != string::npos);
+            Assert::IsTrue(treeStructure.find("Programming") != string::npos);
+            Assert::IsTrue(treeStructure.find("Software") != string::npos);
         }
+
 
         TEST_METHOD(TestCountNode)
         {
             // Arrange
-            Tree tree;
-            string rootData = "Pictures";
-            tree.setRoot(rootData);
+            Tree fileSystemTree;
+            string rootFolderName = "Programming";
+            fileSystemTree.setRoot(rootFolderName);
 
             // Add some nodes to the tree for testing
-            tree.insert("Pictures", "Vacation");
-            tree.insert("Vacation", "Beach.jpg", 23456);
-            tree.insert("Vacation", "Mountains.jpg", 34567);
-            tree.insert("Vacation", "Wife");
-            tree.insert("Wife", "Love.jpg", 23456);
-            tree.insert("Pictures", "Family.jpg", 98765);
+            fileSystemTree.insert("Programming", "Software", 2000);
+            fileSystemTree.insert("Software", "Java.doc", 1000);
+            fileSystemTree.insert("Software", "Python.doc", 3000);
+            fileSystemTree.insert("Software", "Design", 1000);
+            fileSystemTree.insert("Design", "Photoshop.jpg", 5000);
+            fileSystemTree.insert("Design", "EmptyFolder1", 4000);
+            fileSystemTree.insert("Design", "EmptyFolder2", 3000);
 
             // Redirect cout to capture the output
             stringstream capturedOutput;
@@ -145,15 +137,16 @@ namespace TreeTest
             cout.rdbuf(capturedOutput.rdbuf());
 
             // Call the countNode function
-            int nodeCount = tree.countNode();
+            int nodeCount = fileSystemTree.countNode();
 
             // Restore cout
             cout.rdbuf(coutBuffer);
 
             // Assert
             // Check if the node count is as expected (1 for the root node + added nodes)
-            Assert::AreEqual(7, nodeCount);
+            Assert::AreEqual(8, nodeCount);
         }
+
 
         TEST_METHOD(TestCountNodeInFolder)
         {
@@ -183,33 +176,20 @@ namespace TreeTest
         {
             // Arrange
             Tree tree;
-            tree.setRoot("Root");
+            tree.setRoot("filesystem");
 
             // Add some nodes to the tree for testing
-            tree.insert("Root", "Pictures", 3);
-            tree.insert("Pictures", "Vacation", 1);
-            tree.insert("Vacation", "Beach.jpg", 2);
-            tree.insert("Vacation", "Mountains.jpg", 3);
-            tree.insert("Vacation", "Wife", 2);
-            tree.insert("Wife", "Love.jpg", 2);
-            tree.insert("Pictures", "Family.jpg", 2);
+            tree.insert("filesystem", "Programming", 1000);
 
-            tree.insert("Root", "Music", 5);
-            tree.insert("Music", "Song1.mp3", 2);
-            tree.insert("Music", "Song2.mp3", 1);
-            tree.insert("Music", "Song3.mp3", 2);
-            tree.insert("Music", "NewFolder2", 1);
-
-            // Act
             // Call the getSizeOfFolder function
-            int picturesSize = tree.getSizeOfFolder("Pictures");
-            int musicSize = tree.getSizeOfFolder("Music");
+            int programmingSize = tree.getSizeOfFolder("Programming");
 
             // Assert
             // Check if the folder size is as expected
-            Assert::AreEqual(3, picturesSize); // Size of "Pictures" folder
-            Assert::AreEqual(5, musicSize);    // Size of "Music" folder
+            Assert::AreEqual(1000, programmingSize);  // Size of "Programming" folder
+        
         }
+
 
 
         TEST_METHOD(TestRemoveNode)
@@ -219,23 +199,19 @@ namespace TreeTest
             tree.setRoot("Root");
 
             // Add some nodes to the tree for testing
-            tree.insert("Root", "Pictures");
-            tree.insert("Pictures", "Vacation");
-            tree.insert("Vacation", "Beach.jpg");
-            tree.insert("Vacation", "Mountains.jpg");
-            tree.insert("Vacation", "Wife");
-            tree.insert("Wife", "Love.jpg");
-            tree.insert("Pictures", "Family.jpg");
+            tree.insert("Root", "Programming");
+            tree.insert("Root", "Lectures");
+            tree.insert("Lectures", "iot.doc");
 
             // Call the remove function to remove a node
-            bool removed = tree.remove("Wife");
+            bool removed = tree.remove("iot.doc");
 
             // Assert
             // Check if the node is successfully removed
             Assert::IsTrue(removed);
 
             // Check if the removed node is not present in the tree
-            TreeNode* removedNode = tree.find("Wife");
+            TreeNode* removedNode = tree.find("iot.doc");
             Assert::IsNull(removedNode);
         }
 
@@ -245,16 +221,14 @@ namespace TreeTest
             // Arrange
             // Create a tree and set some nodes
             Tree tree;
-            tree.setRoot("Root");
+            tree.setRoot("filesystem");
 
             // Add some nodes to the tree for testing
-            tree.insert("Root", "Pictures", 456789);
-            tree.insert("Pictures", "Vacation", 123456);
-            tree.insert("Vacation", "Beach.jpg", 23456);
-            tree.insert("Vacation", "Mountains.jpg", 34567);
-            tree.insert("Vacation", "Wife", 123456);
-            tree.insert("Wife", "Love.jpg", 23456);
-            tree.insert("Pictures", "Family.jpg", 98765);
+            tree.insert("filesystem", "Programming", 1000);
+            tree.insert("Programming", "Software", 2000);
+            tree.insert("Software", "Java.doc", 1000);
+            tree.insert("Software", "Python.doc", 3000);
+            tree.insert("Software", "Design", 1000);
 
             // Redirect cout to capture the output
             stringstream capturedOutput;
@@ -262,7 +236,7 @@ namespace TreeTest
             cout.rdbuf(capturedOutput.rdbuf());
 
             // Call the find function
-            TreeNode* foundNode = tree.find("Vacation");
+            TreeNode* foundNode = tree.find("Programming");
 
             // Restore cout
             cout.rdbuf(coutBuffer);
@@ -272,9 +246,10 @@ namespace TreeTest
             Assert::IsNotNull(foundNode);
 
             // Check if the foundNode has the correct data
-            Assert::AreEqual(string("Vacation"), foundNode->data);
-            Assert::AreEqual(123456, foundNode->size); // Adjust based on your data model
+            Assert::AreEqual(string("Programming"), foundNode->data);
+            Assert::AreEqual(1000, foundNode->size); // Adjust based on your data model
         }
+
 
 
 
@@ -286,27 +261,16 @@ namespace TreeTest
             tree.setRoot("Root");
 
             // Add some nodes to the tree for testing
-            tree.insert("Root", "Pictures", 1);
-            tree.insert("Pictures", "Vacation", 2);
-            tree.insert("Vacation", "Beach.jpg", 3);
-            tree.insert("Vacation", "Mountains.jpg", 4);
-            tree.insert("Vacation", "Wife", 2);
-            tree.insert("Wife", "Love.jpg", 3);
-            tree.insert("Pictures", "Family.jpg", 2);
-
-            tree.insert("Root", "Music", 5);
-            tree.insert("Music", "Song1.mp3", 1);
-            tree.insert("Music", "Song2.mp3", 2);
-            tree.insert("Music", "Song3.mp3", 3);
-            tree.insert("Music", "NewFolder2", 5);
-
-            // Act
+            tree.insert("Root", "Programming", 1000);
+            tree.insert("Root", "Lectures", 2000);
+            tree.insert("Lectures", "iot.doc", 1000);
+         
             // Call the memoryUsage function
             int totalMemory = tree.memoryUsage(tree.root);
 
             // Assert
             // Check if the total memory is as expected
-            Assert::AreEqual(33, totalMemory); // Sum of sizes of all nodes in the tree
+            Assert::AreEqual(4000, totalMemory); // Sum of sizes of all nodes in the tree
         }
 
 
@@ -319,27 +283,16 @@ namespace TreeTest
             tree.setRoot("Root");
 
             // Add some nodes to the tree for testing
-            tree.insert("Root", "Pictures", 1);
-            tree.insert("Pictures", "Vacation", 2);
-            tree.insert("Vacation", "Beach.jpg", 3);
-            tree.insert("Vacation", "Mountains.jpg", 1);
-            tree.insert("Vacation", "Wife", 2);
-            tree.insert("Wife", "Love.jpg", 1);
-            tree.insert("Pictures", "Family.jpg", 3);
+            tree.insert("Root", "Programming", 1000);
+            tree.insert("Root", "Lectures", 2000);
+            tree.insert("Lectures", "iot.doc", 1000);
 
-            tree.insert("Root", "Music", 1);
-            tree.insert("Music", "Song1.mp3", 3);
-            tree.insert("Music", "Song2.mp3", 2);
-            tree.insert("Music", "Song3.mp3", 3);
-            tree.insert("Music", "NewFolder2", 2);
-
-            // Act
             // Call the memoryUsage function to calculate the memory usage
             int totalMemory = tree.memoryUsage(tree.root);
 
             // Assert
             // Check if the total memory is as expected
-            Assert::AreEqual(24, totalMemory); // Sum of sizes of all nodes in the tree
+            Assert::AreEqual(4000, totalMemory); // Sum of sizes of all nodes in the tree
         }
 
 
@@ -349,11 +302,9 @@ namespace TreeTest
             Tree tree;
 
             // Create a tree structure with empty folders
-            tree.setRoot("Root", 0);
-            tree.insert("Root", "Pictures", 0);
-            tree.insert("Pictures", "Vacation", 0);
-            tree.insert("Vacation", "Beach.jpg", 0);
-            tree.insert("Vacation", "Mountains.jpg", 0);
+            tree.insert("Root", "Programming", 0);
+            tree.insert("Root", "Lectures", 0);
+            tree.insert("Lectures", "iot.doc", 0);
 
             tree.pruneEmptyFolders();
 
@@ -367,35 +318,33 @@ namespace TreeTest
         {
             // Arrange
             Tree tree;
-            tree.setRoot("root");
+           
+            tree.setRoot("Root");
 
             // Add some nodes to the tree for testing
-            tree.insert("root", "Pictures", 1);
-            tree.insert("Pictures", "Vacation", 2);
-            tree.insert("Vacation", "Beach.jpg", 3);
-            tree.insert("Vacation", "Mountains.jpg", 1);
-            tree.insert("Vacation", "Wife", 2);
-            tree.insert("Wife", "Love.jpg", 1);
-            tree.insert("Pictures", "Family.jpg", 3);
-
-            // Act
+            tree.insert("Root", "Programming", 1000);
+            tree.insert("Root", "Lectures", 2000);
+            tree.insert("Lectures", "iot.doc", 1000);
+    
             // Call the findFilePath function
-            string result = findFileOrFolder(tree.root, "Love.jpg");
+            string result = findFileOrFolder(tree.root, "iot.doc");
 
             // Assert
             // Check if the result is as expected
-            Assert::AreEqual(string("root/Pictures/Vacation/Wife/Love.jpg"), result);
+            Assert::AreEqual(string("Root/Lectures/iot.doc"), result);
         }
 
-        TEST_METHOD(TestMusicFolderContent)
+
+        TEST_METHOD(TestLecturesFolderContent)
         {
             // Create a tree and set some nodes based on the provided XML-like structure
             Tree tree;
-            tree.setRoot("Music", 987654);
-            tree.insert("Music", "Song1.mp3", 456789);
-            tree.insert("Music", "Song2.mp3", 567890);
-            tree.insert("Music", "Song3.mp3", 678901);
-            tree.insert("Music", "NewFolder2", 987654);
+            tree.setRoot("Lectures", 2000);
+            tree.insert("Lectures", "Algorithms.doc", 2000);
+            tree.insert("Lectures", "Data.doc", 3000);
+            tree.insert("Lectures", "iot.doc", 5000);
+            tree.insert("Lectures", "EmptyFolder1", 1000);
+            tree.insert("Lectures", "EmptyFolder2", 4000);
 
             // Redirect cout to capture the output
             stringstream capturedOutput;
@@ -403,7 +352,7 @@ namespace TreeTest
             cout.rdbuf(capturedOutput.rdbuf());
 
             // Call the folderContent function using the tree instance for the "Music" folder
-            string result = folderContent(tree, "Music");
+            string result = folderContent(tree, "Lectures");
 
             // Restore cout
             cout.rdbuf(coutBuffer);
@@ -412,10 +361,11 @@ namespace TreeTest
             cout << "Captured Output:\n" << capturedOutput.str() << endl;
 
             // Check if the output contains the expected content
-            Assert::IsTrue(result.find("Song1.mp3") != string::npos);
-            Assert::IsTrue(result.find("Song2.mp3") != string::npos);
-            Assert::IsTrue(result.find("Song3.mp3") != string::npos);
-            Assert::IsTrue(result.find("NewFolder2") != string::npos);
+            Assert::IsTrue(result.find("Algorithms.doc") != string::npos);
+            Assert::IsTrue(result.find("Data.doc") != string::npos);
+            Assert::IsTrue(result.find("iot.doc") != string::npos);
+            Assert::IsTrue(result.find("EmptyFolder1") != string::npos);
+            Assert::IsTrue(result.find("EmptyFolder2") != string::npos);
         }
 
        
