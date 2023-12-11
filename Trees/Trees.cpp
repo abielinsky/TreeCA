@@ -155,6 +155,7 @@ void stage2() {
 }
 
 
+
 // Main function to create the main directory operations GUI window
 void stage3() {
 	// Create the main window
@@ -173,6 +174,7 @@ void stage3() {
 	text.setFillColor(sf::Color::Red);
 	text.setString("Welcome to the Directory Operations Program");
 
+	// Center the text
 	float centerX = window.getSize().x / 2.0f;
 	float centerY = 30;
 
@@ -182,23 +184,24 @@ void stage3() {
 
 	const int buttonWidth = 200;
 	const int buttonHeight = 50;
-	sf::RectangleShape buttons[6];
-	sf::Text buttonLabels[6];
+	sf::RectangleShape buttons[7];  // Increased to accommodate the exit button
+	sf::Text buttonLabels[7];       // Increased to accommodate the exit button
 
 	float buttonSpacing = 10;
 	float currentY = centerY + textRect.height / 2.0f + buttonSpacing;
 
-	std::string customButtonLabels[6] = {
+	std::string customButtonLabels[7] = {
 		"Display Directory Structure",
 		"Number of items",
 		"Memory usage",
 		"Prune Empty Folders",
 		"Find File/Folder",
-		"Display Folder Contents"
+		"Display Folder Contents",
+		"Exit"  // New exit button
 	};
 
 	// Create buttons and labels
-	for (int i = 0; i < 6; ++i) {
+	for (int i = 0; i < 7; ++i) {
 		buttonLabels[i].setFont(font);
 		buttonLabels[i].setCharacterSize(20);
 		buttonLabels[i].setFillColor(sf::Color::Magenta);
@@ -227,7 +230,7 @@ void stage3() {
 			if (event.type == sf::Event::MouseButtonPressed) {
 				if (event.mouseButton.button == sf::Mouse::Left) {
 					sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-					for (int i = 0; i < 6; ++i) {
+					for (int i = 0; i < 7; ++i) {
 						if (buttons[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 
 							// Check the button index to perform the corresponding action
@@ -252,6 +255,9 @@ void stage3() {
 							else if (i == 5) {
 								innerInputWindow(tree, "Complete File Path", "Enter Folder name for get all Content of folder", i, FONT_PATH);
 							}
+							else if (i == 6) {
+								window.close();  // Close the principal window when the Exit button is pressed
+							}
 						}
 					}
 				}
@@ -262,7 +268,7 @@ void stage3() {
 
 		window.draw(text);
 
-		for (int i = 0; i < 6; ++i) {
+		for (int i = 0; i < 7; ++i) {
 			window.draw(buttons[i]);
 			window.draw(buttonLabels[i]);
 		}
@@ -270,6 +276,9 @@ void stage3() {
 		window.display();
 	}
 }
+
+
+
 
 
 

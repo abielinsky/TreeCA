@@ -8,18 +8,19 @@
 #include "Tree.h"
 #include "FileProcess.h"
 
-// Path to the font file
+// Path to the font file (to run this part change the path of the font on you own laptop.)
 const std::string FONT_PATH = "F:/00_COLLEGE_DKI_SOFTWARE_DEVELOPMENT/23_ALGORITHMS_AND_DATA_STRUCTURES/00_TreeCA/TreeCA/fonts/arial.ttf";
 
 // Function to display an inner window with a title and description
 void innerWindow(const std::string& title, const std::string& description, const std::string& fontPath) {
     // Create a window
-    sf::RenderWindow subWindow(sf::VideoMode(700, 600), title);
+    sf::RenderWindow subWindow(sf::VideoMode(700, 900), title);
     subWindow.setFramerateLimit(60);
 
     // Load font
     sf::Font font;
     if (!font.loadFromFile(fontPath)) {
+
         std::cerr << "Error loading font file: " << fontPath << std::endl;
         return; // Return if font loading fails
     }
@@ -34,6 +35,8 @@ void innerWindow(const std::string& title, const std::string& description, const
 
     // Handle events and display the window
     while (subWindow.isOpen()) {
+
+
         sf::Event subEvent;
         while (subWindow.pollEvent(subEvent)) {
             if (subEvent.type == sf::Event::Closed) {
@@ -43,6 +46,8 @@ void innerWindow(const std::string& title, const std::string& description, const
         subWindow.clear(sf::Color(30, 30, 30)); // Background color
         subWindow.draw(text);
         subWindow.display();
+
+
     }
 }
 
