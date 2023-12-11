@@ -245,10 +245,15 @@ void stage3() {
 								std::string memoryInBytes = "Total Memory Usage: " + std::to_string(tree.memoryUsage(tree.root)) + std::string(" Bytes");
 								innerWindow("Total Memory Usage", memoryInBytes, FONT_PATH);
 							}
+
 							else if (i == 3) {
-								tree.pruneEmptyFolders();
+								// Prune empty folders
+								pruneEmptyFolder(tree.root, tree);
+
+								// Display the pruned tree structure
 								innerWindow("Pruned Tree Structure", tree.getTree(), FONT_PATH);
 							}
+
 							else if (i == 4) {
 								innerInputWindow(tree, "Complete File Path", "Enter File/Folder name for search", i, FONT_PATH);
 							}
