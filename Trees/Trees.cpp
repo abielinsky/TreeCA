@@ -234,9 +234,12 @@ void stage3() {
 						if (buttons[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 
 							// Check the button index to perform the corresponding action
+							
 							if (i == 0) {
 								innerWindow("Tree Structure", tree.getTree(), FONT_PATH);
 							}
+
+
 							else if (i == 1) {
 								std::string items = "Number of nodes in a tree: " + std::to_string(tree.countNode());
 								innerWindow("Number of Items in a tree", items, FONT_PATH);
