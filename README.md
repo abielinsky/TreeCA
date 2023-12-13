@@ -27,52 +27,9 @@ The project is organized into three stages:
 
 ### XML Document Validation
 
-The XML document must adhere to the following rules:
-- Must have a root element.
-- Elements must have a closing tag.
-- Elements must be properly nested.
-
-Validation is performed using a stack data structure.
-
 ### Unit Testing
 
 The project follows a Test Driven Development (TDD) approach. Each function is thoroughly tested:
 - Stubs are created for classes and functions.
 - Tests are written, run, failed, and then code is refactored until success.
-
-## Usage
-
-To use the project, follow these steps:
-
-1. **Clone the Repository:**
-    ```bash
-    git clone https://github.com/your-username/file-management-system.git
-    cd file-management-system
-    ```
-
-2. **Build and Run:**
-    - Follow the build instructions specific to your development environment.
-    - Execute the CLI application or launch the GUI.
-
-## Unit Testing
-
-Ensure that you have a testing framework (e.g., Catch2) installed.
-
-1. **Clone the Repository:**
-    ```bash
-    git clone https://github.com/your-username/file-management-system.git
-    cd file-management-system
-    ```
-
-2. **Build and Run Tests:**
-    - Follow the build instructions for the testing environment.
-    - Run the tests to ensure code correctness.
-
-## Contributing
-
-We welcome contributions! If you find any issues or have ideas for improvement, please open an issue or submit a pull request.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
 
