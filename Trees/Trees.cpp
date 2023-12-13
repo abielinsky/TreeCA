@@ -156,25 +156,21 @@ void stage2() {
 
 
 
-// Main function to create the main directory operations GUI window
+
 void stage3() {
-	// Create the main window
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Directory Operations GUI");
 
-	// Load font
 	sf::Font font;
-	if (!font.loadFromFile(FONT_PATH)) {
-		return; // Return if font loading fails
+	if (!font.loadFromFile("F:/00_COLLEGE_DKI_SOFTWARE_DEVELOPMENT/23_ALGORITHMS_AND_DATA_STRUCTURES/00_TreeCA/TreeCA/fonts/arial.ttf")) {
+		return;
 	}
 
-	// Create text for the welcome message
 	sf::Text text;
 	text.setFont(font);
 	text.setCharacterSize(30);
-	text.setFillColor(sf::Color::Red);
+	text.setFillColor(sf::Color::White);
 	text.setString("Welcome to the Directory Operations Program");
 
-	// Center the text
 	float centerX = window.getSize().x / 2.0f;
 	float centerY = 30;
 
@@ -184,33 +180,31 @@ void stage3() {
 
 	const int buttonWidth = 200;
 	const int buttonHeight = 50;
-	sf::RectangleShape buttons[7];  // Increased to accommodate the exit button
-	sf::Text buttonLabels[7];       // Increased to accommodate the exit button
+	sf::RectangleShape buttons[6];
+	sf::Text buttonLabels[6];
 
 	float buttonSpacing = 10;
 	float currentY = centerY + textRect.height / 2.0f + buttonSpacing;
 
-	std::string customButtonLabels[7] = {
+	std::string customButtonLabels[6] = {
 		"Display Directory Structure",
 		"Number of items",
 		"Memory usage",
 		"Prune Empty Folders",
 		"Find File/Folder",
-		"Display Folder Contents",
-		"Exit"  // New exit button
+		"Display Folder Contents"
 	};
 
-	// Create buttons and labels
-	for (int i = 0; i < 7; ++i) {
+	for (int i = 0; i < 6; ++i) {
 		buttonLabels[i].setFont(font);
 		buttonLabels[i].setCharacterSize(20);
-		buttonLabels[i].setFillColor(sf::Color::Magenta);
+		buttonLabels[i].setFillColor(sf::Color::White);
 		buttonLabels[i].setString(customButtonLabels[i]);
 
 		float buttonWidth = buttonLabels[i].getLocalBounds().width + 20;
 
 		buttons[i].setSize(sf::Vector2f(buttonWidth, buttonHeight));
-		buttons[i].setFillColor(sf::Color::Cyan);
+		buttons[i].setFillColor(sf::Color::Blue);
 		buttons[i].setPosition(centerX - buttonWidth / 2.0f, currentY);
 
 		sf::FloatRect labelRect = buttonLabels[i].getLocalBounds();
@@ -220,7 +214,6 @@ void stage3() {
 		currentY += buttonHeight + buttonSpacing;
 	}
 
-	// Handle events and display the main window
 	while (window.isOpen()) {
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -230,41 +223,29 @@ void stage3() {
 			if (event.type == sf::Event::MouseButtonPressed) {
 				if (event.mouseButton.button == sf::Mouse::Left) {
 					sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-					for (int i = 0; i < 7; ++i) {
+					for (int i = 0; i < 6; ++i) {
 						if (buttons[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 
-							// Check the button index to perform the corresponding action
-							
 							if (i == 0) {
-								innerWindow("Tree Structure", tree.getTree(), FONT_PATH);
+								innerWindow("Tree Structure", tree.getTree(), fontPath);
 							}
-
-
 							else if (i == 1) {
 								std::string items = "Number of nodes in a tree: " + std::to_string(tree.countNode());
-								innerWindow("Number of Items in a tree", items, FONT_PATH);
+								innerWindow("Number of Items in a tree", items, fontPath);
 							}
 							else if (i == 2) {
 								std::string memoryInBytes = "Total Memory Usage: " + std::to_string(tree.memoryUsage(tree.root)) + std::string(" Bytes");
-								innerWindow("Total Memory Usage", memoryInBytes, FONT_PATH);
+								innerWindow("Total Memory Usage", memoryInBytes, fontPath);
 							}
-
 							else if (i == 3) {
-								// Prune empty folders
 								pruneEmptyFolder(tree.root, tree);
-
-								// Display the pruned tree structure
-								innerWindow("Pruned Tree Structure", tree.getTree(), FONT_PATH);
+								innerWindow("Pruned Tree Structure", tree.getTree(), fontPath);
 							}
-
 							else if (i == 4) {
-								innerInputWindow(tree, "Complete File Path", "Enter File/Folder name for search", i, FONT_PATH);
+								innerInputWindow(tree, "Complete File Path", "Enter File/Folder name for search", i, fontPath);
 							}
 							else if (i == 5) {
-								innerInputWindow(tree, "Complete File Path", "Enter Folder name for get all Content of folder", i, FONT_PATH);
-							}
-							else if (i == 6) {
-								window.close();  // Close the principal window when the Exit button is pressed
+								innerInputWindow(tree, "Complete File Path", "Enter Folder name for get all Content of folder", i, fontPath);
 							}
 						}
 					}
@@ -272,11 +253,11 @@ void stage3() {
 			}
 		}
 
-		window.clear(sf::Color(50, 50, 50)); // Background color
+		window.clear();
 
 		window.draw(text);
 
-		for (int i = 0; i < 7; ++i) {
+		for (int i = 0; i < 6; ++i) {
 			window.draw(buttons[i]);
 			window.draw(buttonLabels[i]);
 		}
@@ -284,6 +265,13 @@ void stage3() {
 		window.display();
 	}
 }
+
+
+
+
+
+
+
 
 
 
